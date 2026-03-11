@@ -1,0 +1,73 @@
+[tool.poetry]
+name = "dsagent-ralph"
+version = "2.0.0"
+description = "Autonomous Data Science Agent with Ralph orchestrator"
+authors = ["nmlemus <nmlemus@gmail.com>"]
+readme = "README.md"
+packages = [{include = "dsagent", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+# Web
+fastapi = "^0.109.0"
+uvicorn = {extras = ["standard"], version = "^0.27.0"}
+pydantic = "^2.5.0"
+pydantic-settings = "^2.1.0"
+
+# Database
+sqlalchemy = "^2.0.25"
+psycopg2-binary = "^2.9.9"
+alembic = "^1.13.1"
+asyncpg = "^0.29.0"
+
+# Redis
+redis = "^5.0.1"
+
+# LLM & AI
+anthropic = "^0.25.0"
+openai = "^1.12.0"
+
+# Jupyter
+jupyter-client = "^8.12.0"
+ipykernel = "^6.29.0"
+
+# Utilities
+python-dotenv = "^1.0.1"
+httpx = "^0.26.0"
+python-multipart = "^0.0.6"
+
+# Data Science
+pandas = "^2.2.0"
+numpy = "^1.26.0"
+scikit-learn = "^1.4.0"
+xgboost = "^2.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-asyncio = "^0.23.0"
+pytest-cov = "^4.1.0"
+ruff = "^0.2.0"
+black = "^24.1.0"
+mypy = "^1.8.0"
+
+[tool.poetry.scripts]
+dsagent = "dsagent.main:app"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
