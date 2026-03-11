@@ -21,6 +21,9 @@ COPY src/ ./src/
 # Create directories
 RUN mkdir -p /artifacts /projects
 
+# Set Python path
+ENV PYTHONPATH=/app/src
+
 # Expose port
 EXPOSE 8000
 
