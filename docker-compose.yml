@@ -63,17 +63,13 @@ services:
 
   # Jupyter Kernel Pool
   jupyter-pool:
-    image: python:3.11-slim
-    command: >
-      bash -c "pip install ipykernel jupyter-client pandas scikit-learn xgboost &&
-               python -m ipykernel install --user --name=dsagent &&
-               jupyter kernelgateway --KernelGatewayApp.ip=0.0.0.0 --KernelGatewayApp.port=8888"
+    build:
+      context: .
+      dockerfile: Dockerfile.jupyter
     ports:
       - "8888:8888"
     volumes:
-      - /projects:/projects
-    environment:
-      - JUPYTER_ENABLE_LAB=yes
+      - ./projects:/projects
     restart: unless-stopped
 
 volumes:

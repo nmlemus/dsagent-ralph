@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies
+RUN pip install --no-cache-dir \
+    ipykernel \
+    jupyter-client \
+    pandas \
+    numpy \
+    scikit-learn \
+    xgboost \
+    matplotlib \
+    seaborn
+
+# Install Jupyter
+RUN python -m ipykernel install --user --name=dsagent
+
+# Expose port
+EXPOSE 8888
+
+# Run Jupyter
+CMD ["jupyter", "kernelgateway", "--KernelGatewayApp.ip=0.0.0.0", "--KernelGatewayApp.port=8888"]
