@@ -2,21 +2,18 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies and uv
 RUN apt-get update && apt-get install -y \
     postgresql-client \
     curl \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install poetry
-RUN pip install --no-cache-dir poetry==1.7.1
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --no-cache-dir uv
 
 # Copy project files
-COPY pyproject.toml poetry.lock* ./
+COPY pyproject.toml ./
 
-# Install dependencies
-RUN poetry config virtualenvs.create false \
-    && poetry install --no-interaction --no-ansi
+# Install dependencies with uv (much faster than poetry)
+RUN uv sync --frozen --no-dev -p 3.11
 
 # Copy source code
 COPY src/ ./src/
