@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from dsagent.config import get_settings
-from dsagent.api.routes import projects, chat, hitl, plans, items
+from dsagent.api.routes import projects, chat, hitl, plans, items, kernel
 
 
 def create_app() -> FastAPI:
@@ -31,6 +31,7 @@ def create_app() -> FastAPI:
     app.include_router(hitl.router)
     app.include_router(plans.router)
     app.include_router(items.router)
+    app.include_router(kernel.router)
     
     @app.get("/health")
     async def health_check():
